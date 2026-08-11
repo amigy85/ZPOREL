@@ -98,9 +98,15 @@ contornes com uma tabela interna nem com literais.
 Usa-a **sempre** que criares qualquer objecto ABAP no repositório, mesmo que o pedido seja só
 "cria uma classe". Um `.abap` sozinho é invisível para o abapGit.
 
-Regras que se aplicam a todos os ficheiros: UTF-8 **com BOM**, fim de linha **LF**, quebra de
+Regras que se aplicam a todos os ficheiros: UTF-8 **SEM BOM**, fim de linha **LF**, quebra de
 linha final, nomes em minúsculas no padrão `<nome>.<tipo>.<ext>`, todos os ficheiros de um
-objecto na mesma pasta. Corre `abapgit_meta.py check --root .` no fim de cada fase.
+objecto na mesma pasta.
+
+> ⚠️ **Correcção ao skill (2026-08-11):** o abapGit do CBD/010 **rejeita BOM** no source ABAP
+> (erro `The statement ﻿ is unexpected` / `INTF error while scanning source`). O
+> `abapgit_meta.py` gera **com** BOM — por isso, depois de gerar/`check --fix`, **remover o BOM**
+> de tudo em `src/` e do `.abapgit.xml` antes do commit. A regra "sem BOM = erro" do `check` **não
+> se aplica** aqui; usa o `check` só para EOL/pares metafile↔código/packages, ignora o aviso de BOM.
 
 Configuração deste repositório: `STARTING_FOLDER = /src/`, `FOLDER_LOGIC = PREFIX`,
 `MASTER_LANGUAGE = E`.
