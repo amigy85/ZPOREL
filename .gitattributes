@@ -1,0 +1,3 @@
+# abapGit exige LF (com BOM) em todos os ficheiros — impede diffs fantasma
+# ("tudo modificado apos cada pull") quando se faz checkout em Windows.
+* text=auto eol=lf
