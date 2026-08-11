@@ -1,4 +1,4 @@
-﻿"! <p class="shorttext synchronized">ZPOREL - regra de liberacao (logica pura)</p>
+"! <p class="shorttext synchronized">ZPOREL - regra de liberacao (logica pura)</p>
 "! Determina, para uma PO, que codigos de liberacao estao pendentes e quais sao
 "! accionaveis agora (pre-requisitos ja cumpridos). Logica pura (ADR-002): sem
 "! SELECT, sem CALL FUNCTION, sem SY-DATUM. Recebe tudo por parametro; e a unica

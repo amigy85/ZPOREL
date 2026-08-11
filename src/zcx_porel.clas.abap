@@ -1,4 +1,4 @@
-﻿"! <p class="shorttext synchronized">ZPOREL - excepcao</p>
+"! <p class="shorttext synchronized">ZPOREL - excepcao</p>
 "! Excepcao unica do ZPOREL, baseada em classe com IF_T100_MESSAGE. Reservada a
 "! erros nao recuperaveis; customizing incompleto e tratado como aviso no BAL,
 "! nunca como excepcao (ver especificacao secao 4).

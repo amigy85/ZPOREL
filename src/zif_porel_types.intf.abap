@@ -1,4 +1,4 @@
-﻿"! <p class="shorttext synchronized">ZPOREL - tipos de trabalho</p>
+"! <p class="shorttext synchronized">ZPOREL - tipos de trabalho</p>
 "! Todos os tipos de trabalho do ZPOREL vivem aqui (ADR-001): nao ha
 "! representacao DDIC para eles em 7.40 e nenhum e persistido nem usado por RFC.
 INTERFACE zif_porel_types

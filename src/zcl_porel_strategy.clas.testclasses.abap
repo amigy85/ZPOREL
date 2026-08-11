@@ -1,4 +1,4 @@
-﻿"! Testes da regra de liberacao (especificacao secao 9). Logica pura, sem BD.
+"! Testes da regra de liberacao (especificacao secao 9). Logica pura, sem BD.
 CLASS ltc_strategy DEFINITION FINAL FOR TESTING
   DURATION SHORT
   RISK LEVEL HARMLESS.

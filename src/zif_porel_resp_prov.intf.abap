@@ -1,4 +1,4 @@
-﻿"! <p class="shorttext synchronized">ZPOREL - fornecedor de responsaveis</p>
+"! <p class="shorttext synchronized">ZPOREL - fornecedor de responsaveis</p>
 "! Abstrai a origem dos responsaveis por codigo de liberacao. A implementacao
 "! actual le a T16FW standard; overrides/CC entram como implementacao adicional
 "! sem alterar os consumidores (ADR-003, camada Z adiada).

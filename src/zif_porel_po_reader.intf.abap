@@ -1,4 +1,4 @@
-﻿"! <p class="shorttext synchronized">ZPOREL - leitura de POs e customizing</p>
+"! <p class="shorttext synchronized">ZPOREL - leitura de POs e customizing</p>
 "! Toda a leitura de base de dados de POs e do customizing de liberacao esta
 "! atras desta interface (regra da dependencia: o processor nao conhece SQL).
 INTERFACE zif_porel_po_reader
