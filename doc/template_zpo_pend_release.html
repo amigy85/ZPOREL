@@ -1,0 +1,21 @@
+<!--
+  template_zpo_pend_release.html — STUB, por escrever.
+
+  Estado: entregável da Fase 6 (ver ESPEC_ZPOREL_NOTIF_SEMANAL.md §5.2 e §12).
+  Não escrever o HTML antes do gate da Fase 6.
+
+  Propósito: HTML do template de e-mail "ZPO_PEND_RELEASE", child do master
+  ZHCB_MASTER, para carregamento MANUAL na transacção de manutenção de templates
+  do ZEMAIL. Não é hardcoded em ABAP.
+
+  Requisitos a cumprir quando for escrito (ver espec §5.2):
+    - Child do ZHCB_MASTER (cabeçalho com logótipo CID + rodapé institucional).
+    - Placeholders escalares: {{NOME_RESPONSAVEL}}, {{DATA_EXECUCAO}}, {{SEMANA}},
+      {{TOTAL_PO}}, {{VALOR_TOTAL}}, {{MOEDA}}, {{DIAS_MAIS_ANTIGA}}, {{LINK_ME29N}}.
+    - Placeholder de tabela: {{TABELA_POS}} (injectado em bruto, NÃO escapar — armadilha
+      conhecida: escape_html transforma <tr>/<td> em texto literal).
+    - Colunas: PO · Tipo · Fornecedor · Data doc. · Valor · Moeda · Etapa · Dias parada · Grupo compras.
+    - Compatível com Outlook desktop e Web: tabelas HTML, estilos inline, sem flexbox.
+
+  TODO: escrever na Fase 6.
+-->
