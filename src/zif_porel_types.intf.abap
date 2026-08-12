@@ -6,6 +6,8 @@ INTERFACE zif_porel_types
 
   " ----- Definicao da estrategia de liberacao -----
   TYPES:
+    "! Mascara CHAR8 de posicoes (mesmo formato de EKKO-FRGZU / pre-requisitos)
+    ty_mask TYPE c LENGTH 8,
     "! Codigo numa posicao da estrategia (T16FS: posicao -> codigo)
     BEGIN OF ty_strategy_code,
       position TYPE i,
@@ -17,7 +19,7 @@ INTERFACE zif_porel_types
     "! posicao que tem de estar libertada antes deste codigo.
     BEGIN OF ty_prereq,
       frgco TYPE frgco,
-      mask  TYPE c LENGTH 8,
+      mask  TYPE ty_mask,
     END OF ty_prereq,
     tt_prereq TYPE HASHED TABLE OF ty_prereq WITH UNIQUE KEY frgco,
 

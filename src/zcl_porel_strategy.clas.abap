@@ -76,7 +76,7 @@ CLASS zcl_porel_strategy DEFINITION
         is_code        TYPE zif_porel_types=>ty_strategy_code
         iv_mode        TYPE c
       RETURNING
-        VALUE(rv_mask) TYPE c LENGTH 8.
+        VALUE(rv_mask) TYPE zif_porel_types=>ty_mask.
 
     "! Arestas do grafo de pre-requisitos (codigo -> codigo exigido antes).
     METHODS build_edges

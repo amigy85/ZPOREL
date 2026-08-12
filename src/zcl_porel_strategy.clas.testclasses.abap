@@ -12,7 +12,7 @@ CLASS ltc_strategy DEFINITION FINAL FOR TESTING
     "! Mascara CHAR8 com 'X' nas posicoes indicadas por digitos (ex.: '12').
     METHODS mask_of
       IMPORTING iv_digits      TYPE string
-      RETURNING VALUE(rv_mask) TYPE c LENGTH 8.
+      RETURNING VALUE(rv_mask) TYPE zif_porel_types=>ty_mask.
     "! Codigos accionaveis, ordenados.
     METHODS actionables
       IMPORTING it_pending   TYPE zif_porel_types=>tt_pending_code

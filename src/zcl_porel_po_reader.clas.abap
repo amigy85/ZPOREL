@@ -17,9 +17,9 @@ CLASS zcl_porel_po_reader DEFINITION
     "! @parameter rv_mask | Mascara de posicoes exigidas antes
     CLASS-METHODS normalize_prereq
       IMPORTING
-        iv_frga        TYPE c LENGTH 8
+        iv_frga        TYPE zif_porel_types=>ty_mask
       RETURNING
-        VALUE(rv_mask) TYPE c LENGTH 8.
+        VALUE(rv_mask) TYPE zif_porel_types=>ty_mask.
 
   PRIVATE SECTION.
     CONSTANTS c_len TYPE i VALUE 8.
@@ -286,7 +286,7 @@ CLASS zcl_porel_po_reader IMPLEMENTATION.
 
   METHOD build_prereq.
     DATA ls_pr   TYPE zif_porel_types=>ty_prereq.
-    DATA lv_frga TYPE c LENGTH 8.
+    DATA lv_frga TYPE zif_porel_types=>ty_mask.
 
     LOOP AT it_t16fv INTO DATA(ls_fv) WHERE frggr = iv_frggr AND frgsx = iv_frgsx.
       CLEAR lv_frga.
