@@ -66,7 +66,6 @@ INTERFACE zif_porel_types
       frgsx        TYPE ekko-frgsx,
       frgzu        TYPE ekko-frgzu,
       netwr        TYPE ekpo-netwr,
-      days_pending TYPE i,
     END OF ty_po,
     tt_po TYPE STANDARD TABLE OF ty_po WITH DEFAULT KEY,
 
@@ -105,7 +104,6 @@ INTERFACE zif_porel_types
       waers     TYPE ekko-waers,
       frgco     TYPE frgco,
       frgco_txt TYPE t16fd-frgct,
-      days      TYPE i,
       ekgrp     TYPE ekko-ekgrp,
     END OF ty_po_line,
     tt_po_line TYPE STANDARD TABLE OF ty_po_line WITH DEFAULT KEY,
@@ -141,7 +139,6 @@ INTERFACE zif_porel_types
       lifnr    TYPE tr_lifnr,
       bedat    TYPE tr_bedat,
       frggr    TYPE tr_frggr,
-      min_days TYPE i,
     END OF ty_po_filter.
 
 ENDINTERFACE.
