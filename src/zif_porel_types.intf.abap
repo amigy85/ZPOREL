@@ -94,6 +94,16 @@ INTERFACE zif_porel_types
     END OF ty_responsible,
     tt_responsible TYPE STANDARD TABLE OF ty_responsible WITH DEFAULT KEY.
 
+  " ----- Resolucao de e-mail (USR21 -> ADR6 -> ADRP) -----
+  TYPES:
+    tt_bname TYPE STANDARD TABLE OF xubname WITH DEFAULT KEY,
+    BEGIN OF ty_resolved_mail,
+      bname     TYPE xubname,
+      email     TYPE ad_smtpadr,
+      disp_name TYPE ad_namtext,
+    END OF ty_resolved_mail,
+    tt_resolved_mail TYPE HASHED TABLE OF ty_resolved_mail WITH UNIQUE KEY bname.
+
   " ----- Linha do e-mail e destinatario agregado -----
   TYPES:
     BEGIN OF ty_po_line,
