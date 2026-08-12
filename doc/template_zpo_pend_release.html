@@ -1,21 +1,87 @@
 <!--
-  template_zpo_pend_release.html — STUB, por escrever.
+  template_zpo_pend_release.html  —  BODY do e-mail ZPOREL (template child ZPO_PEND_RELEASE).
 
-  Estado: entregável da Fase 6 (ver ESPEC_ZPOREL_NOTIF_SEMANAL.md §5.2 e §12).
-  Não escrever o HTML antes do gate da Fase 6.
+  Este ficheiro e o conteudo do placeholder {{BODY}} do master ZHCB_MASTER. Carrega-se
+  MANUALMENTE em ZEMAIL_TMPL / ZEMAIL_TMPL_CNT (nao e hardcoded em ABAP). E uma sequencia
+  de <tr> que encaixa na tabela de 640px do master (entre a barra azul e o rodape).
 
-  Propósito: HTML do template de e-mail "ZPO_PEND_RELEASE", child do master
-  ZHCB_MASTER, para carregamento MANUAL na transacção de manutenção de templates
-  do ZEMAIL. Não é hardcoded em ABAP.
+  Placeholders alimentados por ZCL_POREL_NOTIF_BUILDER (Fase 6):
+    Escalares (it_values, FORMAT=PLAIN, escapados):
+      {{NOME_RESPONSAVEL}}  nome de apresentacao do destinatario
+      {{TOTAL_PO}}          numero de POs pendentes deste destinatario
+      {{VALOR_TOTAL}}       soma dos valores, ja formatada
+      {{MOEDA}}             moeda predominante (ou '-' se houver mais de uma)
+      {{LINK_ME29N}}        texto de instrucao de acesso (ME29N / portal)
+    Cabecalho do master (ZHCB_MASTER), tambem via it_values:
+      {{DATA}}              data de execucao (DD.MM.AAAA)
+      {{REF}}               semana ISO (ex.: 2026-W33)
+    Bloco de tabela (FORMAT=HTML, injectado em bruto — NAO escapar, ver D3/D4):
+      {{LINHAS_POS}}        linhas <tr> das POs, construidas em ABAP
 
-  Requisitos a cumprir quando for escrito (ver espec §5.2):
-    - Child do ZHCB_MASTER (cabeçalho com logótipo CID + rodapé institucional).
-    - Placeholders escalares: {{NOME_RESPONSAVEL}}, {{DATA_EXECUCAO}}, {{SEMANA}},
-      {{TOTAL_PO}}, {{VALOR_TOTAL}}, {{MOEDA}}, {{DIAS_MAIS_ANTIGA}}, {{LINK_ME29N}}.
-    - Placeholder de tabela: {{TABELA_POS}} (injectado em bruto, NÃO escapar — armadilha
-      conhecida: escape_html transforma <tr>/<td> em texto literal).
-    - Colunas: PO · Tipo · Fornecedor · Data doc. · Valor · Moeda · Etapa · Dias parada · Grupo compras.
-    - Compatível com Outlook desktop e Web: tabelas HTML, estilos inline, sem flexbox.
-
-  TODO: escrever na Fase 6.
+  Colunas (a ordem TEM de bater com build_single_row do ZCL_POREL_NOTIF_BUILDER):
+    PO | Tipo | Fornecedor | Data doc. | Valor | Moeda | Etapa | Grupo
+  Sem coluna "Dias parada" (fora de ambito).
+  Compativel com Outlook: tabelas HTML, estilos inline, sem flexbox.
 -->
+
+<!-- Saudacao + introducao -->
+<tr>
+<td class="px" style="padding:28px 32px 8px 32px; font-family:Arial, Helvetica, sans-serif;">
+<p style="margin:0 0 4px 0; font-size:16px; line-height:24px; color:#000000;">
+Caro(a) <strong>{{NOME_RESPONSAVEL}}</strong>,
+</p>
+<p style="margin:12px 0 0 0; font-size:14px; line-height:22px; color:#333333;">
+Encontram-se pendentes da <strong>sua aprova&ccedil;&atilde;o</strong> os Pedidos de Compra
+listados abaixo. Estes documentos aguardam a etapa de libera&ccedil;&atilde;o sob a sua
+responsabilidade &mdash; os pr&eacute;-requisitos anteriores j&aacute; se encontram cumpridos.
+</p>
+</td>
+</tr>
+
+<!-- Resumo -->
+<tr>
+<td class="px" style="padding:16px 32px 4px 32px; font-family:Arial, Helvetica, sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+       style="background-color:#f5f5fa; border-left:3px solid #005baa;">
+<tr>
+<td style="padding:14px 16px; font-family:Arial, Helvetica, sans-serif; font-size:14px; line-height:22px; color:#333333;">
+<strong style="color:#000000;">{{TOTAL_PO}}</strong> pedido(s) de compra pendente(s)
+&middot; Valor total: <strong style="color:#000000;">{{VALOR_TOTAL}} {{MOEDA}}</strong>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+
+<!-- Tabela das POs -->
+<tr>
+<td class="px" style="padding:16px 32px 8px 32px; font-family:Arial, Helvetica, sans-serif;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%"
+       style="border-collapse:collapse; border:1px solid #ededf3;">
+<thead>
+<tr>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">PO</th>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Tipo</th>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Fornecedor</th>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Data doc.</th>
+<th class="tbl-cell" align="right" style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Valor</th>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Moeda</th>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Etapa</th>
+<th class="tbl-cell" align="left"  style="padding:9px 8px; background-color:#000000; color:#ffffff; font-family:Arial, Helvetica, sans-serif; font-size:11px; font-weight:bold; text-transform:uppercase; letter-spacing:0.4px; border-bottom:2px solid #005baa;">Grupo</th>
+</tr>
+</thead>
+<tbody>
+{{LINHAS_POS}}
+</tbody>
+</table>
+</td>
+</tr>
+
+<!-- Instrucao de acesso -->
+<tr>
+<td class="px" style="padding:12px 32px 28px 32px; font-family:Arial, Helvetica, sans-serif;">
+<p style="margin:0; font-size:13px; line-height:20px; color:#555555;">
+{{LINK_ME29N}}
+</p>
+</td>
+</tr>
