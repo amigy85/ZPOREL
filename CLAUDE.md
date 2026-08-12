@@ -15,18 +15,21 @@ deve ser duplicada aqui.
 
 ## 0. Estado do repositório e comandos
 
-Estado: **Fases 0–3 concluídas** — a aguardar o gate da Fase 3 (pull + ABAP Unit + activação).
+Estado: **Fases 0–4 concluídas** — a aguardar o gate da Fase 4 (pull + ABAP Unit + activação).
+Nota de âmbito: **"dias parada" (§3.5) fora de âmbito** — sem `CDHDR/CDPOS`; campos `days`/`min_days`
+removidos dos tipos.
 - `doc/ESPEC_ZPOREL_NOTIF_SEMANAL.md` — especificação (fonte de verdade).
 - `doc/fase0_descobertas.md` — descobertas reais do CBD/010 + **divergências D1–D10** (ler antes de codificar).
 - `doc/ddic_manual.md` — guião dos objectos DDIC/SE91/SLG0 (criados no CBD, package `$ZPOREL`).
 - `.abapgit.xml` (raiz) + `src/package.devc.xml` — repositório abapGit inicializado (`check` OK).
 - Fase 2: `src/zif_porel_types`, `zcx_porel`, `zif_porel_po_reader`, `zif_porel_resp_prov`.
-- Fase 3: `src/zcl_porel_strategy` + `.clas.testclasses.abap` (10 testes da §9). `check` OK.
+- Fase 3: `src/zcl_porel_strategy` + testes (10 da §9) — **verdes**, activada.
+- Fase 4: `src/zcl_porel_po_reader` + testes (4, `normalize_prereq`). `check` OK (só avisos de BOM).
 - `doc/template_zpo_pend_release.html` — stub (Fase 6).
 
-**Gate da Fase 3 (a decorrer):** o Amarildo faz pull, corre a ABAP Unit da `ZCL_POREL_STRATEGY`
-(têm de ficar **todos verdes**) e activa. Só depois avança a **Fase 4** (`ZCL_POREL_PO_READER`).
-Não encadear fases.
+**Gate da Fase 4 (a decorrer):** o Amarildo faz pull (inclui `zif_porel_types` alterado — dias
+removidos), activa `zcl_porel_po_reader`, corre a ABAP Unit (4 testes). Só depois avança a
+**Fase 5** (`ZCL_POREL_MAIL_RESOLVER` + `ZCL_POREL_RESP_PROV_T16FW`). Não encadear fases.
 
 Não há toolchain de build/lint/test local: **compilação, activação e ABAP Unit correm dentro do
 CBD/010**, não aqui (ver secção 2). A única verificação local é o metafile do abapGit:
