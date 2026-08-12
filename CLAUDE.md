@@ -15,7 +15,8 @@ deve ser duplicada aqui.
 
 ## 0. Estado do repositório e comandos
 
-Estado: **Fases 0–7 concluídas** — a aguardar o gate da Fase 7 (pull + ABAP Unit + activação).
+Estado: **Fases 0–8 concluídas (todo o código)** — a aguardar o gate da Fase 8 (pull + activação
++ teste em diálogo). Falta só a Fase 9 (variante `SEMANAL`, job SM36, validação, README final).
 Nota de âmbito: **"dias parada" (§3.5) fora de âmbito**; **`ZPOREL_C_RESP` adiada** (só T16FW).
 Convenção: tipos nomeados nas assinaturas (nunca `TYPE c LENGTH n`); ficheiros **sem BOM**.
 - `doc/ESPEC_ZPOREL_NOTIF_SEMANAL.md` — especificação (fonte de verdade).
@@ -30,10 +31,12 @@ Convenção: tipos nomeados nas assinaturas (nunca `TYPE c LENGTH n`); ficheiros
   próprio) + `doc/zpo_pend_release.html` (body). Carregam-se à mão no `ZEMAIL_TMPL_MAINT`.
 - Fase 7: `src/zif_porel_run_control`/`zcl_porel_run_control` (idempotência) e `src/zcl_porel_processor`
   (orquestração; +8 testes de `compute_actionable`/`build_notif_lines`/`dispatch`).
+- Fase 8: `src/zrp_mm_po_pend_release` — report com ecrã de selecção, validação, SALV + hotspot
+  ME23N, lista em background. `notify` passou a `EXPORTING et_results`/`et_lines`.
 
-**Gate da Fase 7 (a decorrer):** o Amarildo faz pull (inclui `zif_porel_types` — `ty_actionable`/
-`ty_run_policy`), activa as 3 novas peças, corre a ABAP Unit do processor (8 testes). Só depois avança
-a **Fase 8** (report `ZRP_MM_PO_PEND_RELEASE` + SALV). Não encadear fases.
+**Gate da Fase 8 (a decorrer):** o Amarildo faz pull (inclui `zcl_porel_processor` alterado), activa
+o report, **mantém os text elements** (títulos B01–B03 e textos de selecção em SE38) e testa em
+diálogo. Só depois a **Fase 9** (variante `SEMANAL`, job SM36, validação vs ME28, README final).
 
 Não há toolchain de build/lint/test local: **compilação, activação e ABAP Unit correm dentro do
 CBD/010**, não aqui (ver secção 2). A única verificação local é o metafile do abapGit:
