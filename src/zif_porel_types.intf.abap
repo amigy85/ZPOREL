@@ -154,6 +154,24 @@ INTERFACE zif_porel_types
     END OF ty_send_result,
     tt_send_result TYPE STANDARD TABLE OF ty_send_result WITH DEFAULT KEY.
 
+  " ----- Orquestracao (processor) -----
+  TYPES:
+    "! Etapa accionavel de uma PO (PO + codigo por libertar)
+    BEGIN OF ty_actionable,
+      po    TYPE ty_po,
+      frgco TYPE frgco,
+    END OF ty_actionable,
+    tt_actionable TYPE STANDARD TABLE OF ty_actionable WITH DEFAULT KEY,
+    "! Politica de execucao (do ecra de seleccao)
+    BEGIN OF ty_run_policy,
+      send       TYPE abap_bool,
+      force      TYPE abap_bool,
+      test_mode  TYPE abap_bool,
+      test_email TYPE ad_smtpadr,
+      mode       TYPE c LENGTH 1,
+      langu      TYPE spras,
+    END OF ty_run_policy.
+
   " ----- Filtro do reader (do ecra de seleccao) -----
   TYPES:
     tr_ebeln TYPE RANGE OF ekko-ebeln,
