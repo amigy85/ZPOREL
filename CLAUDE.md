@@ -15,21 +15,22 @@ deve ser duplicada aqui.
 
 ## 0. Estado do repositório e comandos
 
-Estado: **Fases 0–4 concluídas** — a aguardar o gate da Fase 4 (pull + ABAP Unit + activação).
-Nota de âmbito: **"dias parada" (§3.5) fora de âmbito** — sem `CDHDR/CDPOS`; campos `days`/`min_days`
-removidos dos tipos.
+Estado: **Fases 0–5 concluídas** — a aguardar o gate da Fase 5 (pull + ABAP Unit + activação).
+Nota de âmbito: **"dias parada" (§3.5) fora de âmbito**; **`ZPOREL_C_RESP` adiada** (só T16FW).
+Convenção: tipos nomeados nas assinaturas (nunca `TYPE c LENGTH n`); ficheiros **sem BOM**.
 - `doc/ESPEC_ZPOREL_NOTIF_SEMANAL.md` — especificação (fonte de verdade).
 - `doc/fase0_descobertas.md` — descobertas reais do CBD/010 + **divergências D1–D10** (ler antes de codificar).
 - `doc/ddic_manual.md` — guião dos objectos DDIC/SE91/SLG0 (criados no CBD, package `$ZPOREL`).
 - `.abapgit.xml` (raiz) + `src/package.devc.xml` — repositório abapGit inicializado (`check` OK).
 - Fase 2: `src/zif_porel_types`, `zcx_porel`, `zif_porel_po_reader`, `zif_porel_resp_prov`.
 - Fase 3: `src/zcl_porel_strategy` + testes (10 da §9) — **verdes**, activada.
-- Fase 4: `src/zcl_porel_po_reader` + testes (4, `normalize_prereq`). `check` OK (só avisos de BOM).
+- Fase 4: `src/zcl_porel_po_reader` + testes (4, `normalize_prereq`) — verde, activada.
+- Fase 5: `src/zcl_porel_mail_resolver` (+4 testes de `pick_email`, D6) e `src/zcl_porel_resp_prov_t16fw`.
 - `doc/template_zpo_pend_release.html` — stub (Fase 6).
 
-**Gate da Fase 4 (a decorrer):** o Amarildo faz pull (inclui `zif_porel_types` alterado — dias
-removidos), activa `zcl_porel_po_reader`, corre a ABAP Unit (4 testes). Só depois avança a
-**Fase 5** (`ZCL_POREL_MAIL_RESOLVER` + `ZCL_POREL_RESP_PROV_T16FW`). Não encadear fases.
+**Gate da Fase 5 (a decorrer):** o Amarildo faz pull (inclui `zif_porel_types` — novos tipos de
+resolução), activa as 2 classes, corre a ABAP Unit do resolver (4 testes). Só depois avança a
+**Fase 6** (`ZCL_POREL_NOTIF_BUILDER` + template HTML). Não encadear fases.
 
 Não há toolchain de build/lint/test local: **compilação, activação e ABAP Unit correm dentro do
 CBD/010**, não aqui (ver secção 2). A única verificação local é o metafile do abapGit:
