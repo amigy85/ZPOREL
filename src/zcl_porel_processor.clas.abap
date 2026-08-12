@@ -22,10 +22,11 @@ CLASS zcl_porel_processor DEFINITION
     "! Fluxo completo: seleccao -> regra -> responsaveis -> e-mail -> envio.
     METHODS notify
       IMPORTING
-        is_filter         TYPE zif_porel_types=>ty_po_filter
-        is_policy         TYPE zif_porel_types=>ty_run_policy
-      RETURNING
-        VALUE(rt_results) TYPE zif_porel_types=>tt_send_result
+        is_filter  TYPE zif_porel_types=>ty_po_filter
+        is_policy  TYPE zif_porel_types=>ty_run_policy
+      EXPORTING
+        et_results TYPE zif_porel_types=>tt_send_result
+        et_lines   TYPE zif_porel_types=>tt_notif_line
       RAISING
         zcx_porel.
 
@@ -130,12 +131,14 @@ CLASS zcl_porel_processor IMPLEMENTATION.
                                           it_mails        = lt_mail
                                           it_texts        = lt_txt
                                           iv_langu        = is_policy-langu ).
+    et_lines = lt_lines.
+
     DATA(lt_bundles) = mo_builder->aggregate( lt_lines ).
 
     emit( iv_number = '004' iv_type = 'I'
           iv_v1 = |{ lines( lt_lines ) }| iv_v2 = |{ lines( lt_bundles ) }| ).
 
-    rt_results = dispatch( it_bundles = lt_bundles is_policy = is_policy iv_run_date = sy-datum ).
+    et_results = dispatch( it_bundles = lt_bundles is_policy = is_policy iv_run_date = sy-datum ).
 
     IF mo_logger IS BOUND.
       mo_logger->save( ).
