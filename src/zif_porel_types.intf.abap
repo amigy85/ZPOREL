@@ -8,6 +8,8 @@ INTERFACE zif_porel_types
   TYPES:
     "! Mascara CHAR8 de posicoes (mesmo formato de EKKO-FRGZU / pre-requisitos)
     ty_mask TYPE c LENGTH 8,
+    "! Semana ISO no e-mail (ex.: '2026-W33')
+    ty_iso_week TYPE c LENGTH 8,
     "! Codigo numa posicao da estrategia (T16FS: posicao -> codigo)
     BEGIN OF ty_strategy_code,
       position TYPE i,
@@ -133,6 +135,24 @@ INTERFACE zif_porel_types
       lines     TYPE tt_po_line,
     END OF ty_recipient_bundle,
     tt_recipient_bundle TYPE STANDARD TABLE OF ty_recipient_bundle WITH DEFAULT KEY.
+
+  " ----- Entrada/saida do notif builder -----
+  TYPES:
+    "! Linha achatada (destinatario + uma linha de PO) antes de agregar
+    BEGIN OF ty_notif_line,
+      recipient TYPE ty_recipient,
+      line      TYPE ty_po_line,
+    END OF ty_notif_line,
+    tt_notif_line TYPE STANDARD TABLE OF ty_notif_line WITH DEFAULT KEY,
+    "! Resultado do envio por destinatario
+    BEGIN OF ty_send_result,
+      email    TYPE ad_smtpadr,
+      po_count TYPE i,
+      status   TYPE c LENGTH 1,
+      send_id  TYPE string,
+      message  TYPE string,
+    END OF ty_send_result,
+    tt_send_result TYPE STANDARD TABLE OF ty_send_result WITH DEFAULT KEY.
 
   " ----- Filtro do reader (do ecra de seleccao) -----
   TYPES:
