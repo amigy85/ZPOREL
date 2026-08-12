@@ -15,7 +15,7 @@ deve ser duplicada aqui.
 
 ## 0. Estado do repositório e comandos
 
-Estado: **Fases 0–6 concluídas** — a aguardar o gate da Fase 6 (pull + ABAP Unit + preview do template).
+Estado: **Fases 0–7 concluídas** — a aguardar o gate da Fase 7 (pull + ABAP Unit + activação).
 Nota de âmbito: **"dias parada" (§3.5) fora de âmbito**; **`ZPOREL_C_RESP` adiada** (só T16FW).
 Convenção: tipos nomeados nas assinaturas (nunca `TYPE c LENGTH n`); ficheiros **sem BOM**.
 - `doc/ESPEC_ZPOREL_NOTIF_SEMANAL.md` — especificação (fonte de verdade).
@@ -28,10 +28,12 @@ Convenção: tipos nomeados nas assinaturas (nunca `TYPE c LENGTH n`); ficheiros
 - Fase 5: `src/zcl_porel_mail_resolver` (+4 testes de `pick_email`, D6) e `src/zcl_porel_resp_prov_t16fw`.
 - Fase 6: `src/zcl_porel_notif_builder` (+4 testes) e os templates `doc/zhcb_master_po.html` (master
   próprio) + `doc/zpo_pend_release.html` (body). Carregam-se à mão no `ZEMAIL_TMPL_MAINT`.
+- Fase 7: `src/zif_porel_run_control`/`zcl_porel_run_control` (idempotência) e `src/zcl_porel_processor`
+  (orquestração; +8 testes de `compute_actionable`/`build_notif_lines`/`dispatch`).
 
-**Gate da Fase 6 (a decorrer):** o Amarildo faz pull (inclui `zif_porel_types` — tipos do builder),
-activa `zcl_porel_notif_builder`, corre a ABAP Unit (4 testes) **e** carrega/pré-visualiza os 2
-templates. Só depois avança a **Fase 7** (`ZCL_POREL_RUN_CONTROL` + `ZCL_POREL_PROCESSOR`). Não encadear fases.
+**Gate da Fase 7 (a decorrer):** o Amarildo faz pull (inclui `zif_porel_types` — `ty_actionable`/
+`ty_run_policy`), activa as 3 novas peças, corre a ABAP Unit do processor (8 testes). Só depois avança
+a **Fase 8** (report `ZRP_MM_PO_PEND_RELEASE` + SALV). Não encadear fases.
 
 Não há toolchain de build/lint/test local: **compilação, activação e ABAP Unit correm dentro do
 CBD/010**, não aqui (ver secção 2). A única verificação local é o metafile do abapGit:
