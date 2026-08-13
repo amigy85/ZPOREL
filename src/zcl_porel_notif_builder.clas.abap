@@ -58,6 +58,13 @@ CLASS zcl_porel_notif_builder DEFINITION
     CONSTANTS c_default_link TYPE string
       VALUE 'Para aprovar, aceda à transacção ME29N no sistema SAP.'.
 
+    " Logo HCB embutido inline via CID (T3.5/T3.6, ZCL_EMAIL_RENDERER) — o master
+    " ZHCB_MASTER_PO tem <img src="cid:logo_hcb">, que so resolve se o e-mail levar
+    " o anexo inline correspondente. Mesmo content-id e caminho MIME do ZASSIST
+    " (ZCL_ASSIST_MEDIC_PROCESSOR); o PNG e carregado a mao em /SAP/PUBLIC/ZHCB.
+    CONSTANTS c_logo_content_id TYPE zemail_content_id VALUE 'logo_hcb'.
+    CONSTANTS c_logo_mime_path  TYPE string VALUE '/SAP/PUBLIC/ZHCB/logo_hcb.png'.
+
     DATA mo_email_service TYPE REF TO zif_email_service.
     DATA mv_template_id   TYPE zemail_template_id.
     DATA mv_langu         TYPE spras.
@@ -111,7 +118,8 @@ CLASS zcl_porel_notif_builder IMPLEMENTATION.
   METHOD constructor.
     mo_email_service = COND #(
       WHEN io_email_service IS BOUND THEN io_email_service
-      ELSE zcl_email_factory=>create_notification_service( ) ).
+      ELSE zcl_email_factory=>create_notification_service(
+        it_images = VALUE #( ( content_id = c_logo_content_id mime_path = c_logo_mime_path ) ) ) ).
     mv_template_id = iv_template_id.
     mv_langu       = iv_langu.
     mv_link_text   = COND #( WHEN iv_link_text IS NOT INITIAL THEN iv_link_text ELSE c_default_link ).

@@ -143,6 +143,15 @@ CLASS zcl_porel_processor IMPLEMENTATION.
     IF mo_logger IS BOUND.
       mo_logger->save( ).
     ENDIF.
+
+    " O framework ZEMAIL (ZCL_EMAIL_SENDER_BCS) usa CL_BCS=>CREATE_PERSISTENT e
+    " NAO faz COMMIT WORK: delega a LUW na aplicacao chamadora. Sem este commit
+    " as ordens de envio ficam "Em espera" sem entrada na fila SAPconnect (SOST,
+    " msg SO672) e os registos de idempotencia (ZPOREL_RUN) e o log BAL nao
+    " persistem. Um unico commit fecha a LUW de toda a execucao. Fica em NOTIFY
+    " (fronteira do caso de uso), nunca em DISPATCH — que os testes unitarios
+    " exercitam directamente.
+    COMMIT WORK.
   ENDMETHOD.
 
 

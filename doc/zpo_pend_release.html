@@ -1,23 +1,28 @@
 <!--
   zpo_pend_release.html  —  BODY do e-mail ZPOREL (template child ZPO_PEND_RELEASE).
 
-  Este ficheiro e o conteudo do placeholder {{BODY}} do master ZHCB_MASTER_PO
-  (variante ZPOREL do master, ver zhcb_master_po.html). Carrega-se MANUALMENTE em
-  ZEMAIL_TMPL / ZEMAIL_TMPL_CNT (nao e hardcoded em ABAP). E uma sequencia de <tr> que
-  encaixa na tabela de 640px do master (entre a barra azul e o rodape).
+  IMPORTANTE: este comentario NAO pode conter tokens de placeholder com chavetas
+  duplas. Este child e injectado no BODY do master; o motor valida que nao sobra
+  nenhum placeholder por resolver, e um token de doc (ex.: BODY) que nao esteja em
+  it_values rebenta o envio ("Placeholder ... nao resolvido"). Nomes SEM chavetas.
+
+  Este ficheiro e o conteudo do BODY do master ZHCB_MASTER_PO (variante ZPOREL do
+  master, ver zhcb_master_po.html). Carrega-se MANUALMENTE em ZEMAIL_TMPL /
+  ZEMAIL_TMPL_CNT (nao e hardcoded em ABAP). E uma sequencia de <tr> que encaixa na
+  tabela de 640px do master (entre a barra azul e o rodape).
 
   Placeholders alimentados por ZCL_POREL_NOTIF_BUILDER (Fase 6):
     Escalares (it_values, FORMAT=PLAIN, escapados):
-      {{NOME_RESPONSAVEL}}  nome de apresentacao do destinatario
-      {{TOTAL_PO}}          numero de POs pendentes deste destinatario
-      {{VALOR_TOTAL}}       soma dos valores, ja formatada
-      {{MOEDA}}             moeda predominante (ou '-' se houver mais de uma)
-      {{LINK_ME29N}}        texto de instrucao de acesso (ME29N / portal)
+      NOME_RESPONSAVEL  nome de apresentacao do destinatario
+      TOTAL_PO          numero de POs pendentes deste destinatario
+      VALOR_TOTAL       soma dos valores, ja formatada
+      MOEDA             moeda predominante (ou '-' se houver mais de uma)
+      LINK_ME29N        texto de instrucao de acesso (ME29N / portal)
     Cabecalho do master (ZHCB_MASTER), tambem via it_values:
-      {{DATA}}              data de execucao (DD.MM.AAAA)
-      {{REF}}               semana ISO (ex.: 2026-W33)
+      DATA              data de execucao (DD.MM.AAAA)
+      REF               semana ISO (ex.: 2026-W33)
     Bloco de tabela (FORMAT=HTML, injectado em bruto — NAO escapar, ver D3/D4):
-      {{LINHAS_POS}}        linhas <tr> das POs, construidas em ABAP
+      LINHAS_POS        linhas <tr> das POs, construidas em ABAP
 
   Colunas (a ordem TEM de bater com build_single_row do ZCL_POREL_NOTIF_BUILDER):
     PO | Tipo | Fornecedor | Data doc. | Valor | Moeda | Etapa | Grupo

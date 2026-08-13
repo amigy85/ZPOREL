@@ -1,15 +1,20 @@
 <!--
   zhcb_master_po.html  —  MASTER do e-mail ZPOREL (template master ZHCB_MASTER_PO).
 
+  IMPORTANTE: este comentario NAO pode conter tokens de placeholder com chavetas
+  duplas — o motor (ZCL_TEMPLATE_ENGINE) faz REPLACE ALL do BODY e valida que nao
+  sobra nenhum placeholder por resolver; um token de doc no comentario rebenta o
+  envio ("Placeholder ... nao resolvido"). Por isso os nomes vao SEM chavetas.
+
   Copia de ZHCB_MASTER (Nota de Debito) com o cabecalho neutralizado para Compras /
-  Liberacao de POs. Mesmo estilo, logo (cid:logo_hcb), barra azul, {{BODY}} e rodape.
+  Liberacao de POs. Mesmo estilo, logo (cid:logo_hcb), barra azul, BODY e rodape.
   Carrega-se MANUALMENTE em ZEMAIL_TMPL / ZEMAIL_TMPL_CNT como MASTER; o child
   ZPO_PEND_RELEASE (zpo_pend_release.html) referencia este master.
 
   Placeholders do cabecalho (alimentados por ZCL_POREL_NOTIF_BUILDER via it_values):
-    {{DATA}}  data de execucao (DD.MM.AAAA)
-    {{REF}}   semana ISO (ex.: 2026-W33)
-  O conteudo especifico entra em {{BODY}}.
+    DATA  data de execucao (DD.MM.AAAA)
+    REF   semana ISO (ex.: 2026-W33)
+  O unico token com chavetas neste ficheiro e o BODY real, na linha do corpo.
 -->
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
